@@ -217,7 +217,7 @@ function App() {
                 )
               : 
               (
-                <p className="success-description">Your account has been successfully deleted</p>
+                <p className="success-description">{'Your account has been successfully deleted. Don\'t forget to also cancel your subscription if you haven\'t done so already. Thank you!'}</p>
               )
             }
 
