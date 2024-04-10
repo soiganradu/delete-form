@@ -44,35 +44,28 @@ function App() {
 
     if(emailValid && pinValid){
       if(email == ""){
-        callGeneratePin(emailInput, false);
+        callGeneratePin(emailInput, true, true);
       }else{
         callDeleteAccount(pinInput);
       }
     }
   };
 
-  const callGeneratePin= (email, startCountdown) => {
-    if(startCountdown){
-      setShowSubmit(false);
-      setCodeIsLoading(true);
-    }else{
-      setIsLoading(true);
-    }
+  const callGeneratePin= (email, showSubmit, isLoading) => {
+    setShowSubmit(showSubmit);
+    setCodeIsLoading(true);
+    setIsLoading(isLoading);
 
     generatePin(email).then(({responseCode, flowErrors, validationErrors}) => {
-      if(startCountdown){
-        setShowSubmit(true);
-        setCodeIsLoading(false);
-      }else{
-        setIsLoading(false);
-      }
+      setShowSubmit(true);
+      setCodeIsLoading(false);
+      setIsLoading(false);
+
       if(responseCode == 0){
         setEmail(email);
         setDescription("Enter your 6 digit pin code that you received on email");
-        if(startCountdown){
-          setCountdown(120);
-          setIsCounting(true);
-        }
+        setCountdown(120);
+        setIsCounting(true);
       }else{
         setHasError(true);
         if (flowErrors != null && flowErrors.length != 0) {
@@ -83,12 +76,9 @@ function App() {
         }
       }
     }).catch(() => {
-      if(startCountdown){
-        setShowSubmit(true);
-        setCodeIsLoading(false);
-      }else{
-        setIsLoading(false);
-      }
+      setShowSubmit(true);
+      setCodeIsLoading(false);
+      setIsLoading(false);
       setHasError(true);
       setError("Something went wrong, please try again later!");
     });
@@ -118,7 +108,7 @@ function App() {
   }
 
   const startCountdown = () => {
-    callGeneratePin(email, true);
+    callGeneratePin(email, false, false);
   };
 
   useEffect(() => {

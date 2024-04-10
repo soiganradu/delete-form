@@ -9,7 +9,7 @@
       },
       body: JSON.stringify(data),
     };
-    const response = await fetch('https://flexser.app/acc/gp', requestOptions);
+    const response = await fetch('https://flexser.app/acc/generate', requestOptions);
   
     if (response.ok) {
       const json = await response.json();
